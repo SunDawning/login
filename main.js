@@ -25,6 +25,7 @@ consoleLog(`HTTP服务器正在运行，地址为：
 
 Powered by Deno.
 `);
+let TOKENS={}; // 存储所有有时效的登录权限
 for await (let request of server){
     let body;
     let headers;
@@ -43,19 +44,45 @@ for await (let request of server){
                     account:false,
                     password:false,
                 };
-                let account=requestBody["account"];
-                consoleLog("account",account);
-                if(account){
-                    let lowerCaseAccount=account.toLowerCase();
-                    consoleLog("lowerCaseAccount",lowerCaseAccount)
-                    let user=ACCOUNTS[lowerCaseAccount];
-                    if(user){
-                        consoleLog("用户存在");
-                        body.account=true;
-                        let validPassword=encrypt(user["password"]+requestBody["random"]);
-                        if(validPassword===requestBody["password"]){
-                            consoleLog("密码正确");
-                            body.password=true;
+                // 检测到有效的token
+                let token=requestBody["token"];
+                consoleLog("token",token);
+                if(token){
+                    if(TOKENS[token]){
+                        // 确认token有效
+                        consoleLog("有效token");
+                        body.token=true;
+                    }else{
+                        // 让token失效
+                        consoleLog("无效token")
+                        body.token=false;
+                    }
+                }else{
+                    let account=requestBody["account"];
+                    consoleLog("account",account);
+                    if(account){
+                        let lowerCaseAccount=account.toLowerCase();
+                        consoleLog("lowerCaseAccount",lowerCaseAccount)
+                        let user=ACCOUNTS[lowerCaseAccount];
+                        if(user){
+                            consoleLog("用户存在");
+                            body.account=true;
+                            let validPassword=encrypt(user["password"]+requestBody["random"]);
+                            if(validPassword===requestBody["password"]){
+                                consoleLog("密码正确");
+                                body.password=true;
+                                let timestamp=new Date().getTime();
+                                let token=encrypt(account+user["password"]+timestamp);
+                                // 在内存里保存token
+                                TOKENS[token]={
+                                    account:account,
+                                    timestamp:timestamp,
+                                };
+                                let TOKEN={};
+                                TOKEN[token]=TOKENS[token];
+                                consoleLog("在内存里保存token",TOKEN);
+                                body.token=token;
+                            }
                         }
                     }
                 }

@@ -66,6 +66,7 @@ function createSubmitButton(){
     function onClick(event){
         // 查询登录信息
         let data=localStorage.getItem("loginData");
+        // 使用账号密码登录
         if(data===null){
             let collection=button.parentElement.getElementsByTagName("input");
             let inputAccount=collection["account"].value;
@@ -87,12 +88,30 @@ function createSubmitButton(){
             data.password=encrypt(data.password+data.random);
         }else{
             data=JSON.parse(data);
+            // 使用token登录
+            if(data.token){
+                data={
+                    token:data.token,
+                }
+            }
         }
         consoleLog("点击了登录按钮");
         consoleLog("发送登录信息",data);
         postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){
             consoleLog("返回验证信息",json);
-            if(json.account===false){
+            if(json.token===false){
+                Toast.warning("登录已过期，正在重新登录。");
+                // 删除保存的无效token
+                if(localStorage.getItem("loginData")){
+                    data=JSON.parse(localStorage.getItem("loginData"));
+                    delete data.token;
+                }
+                localStorage.setItem("loginData",JSON.stringify(data));
+                // 重新登录
+                onClick(event);
+            }else if(json.token===true){
+                Toast.success("登录成功");
+            }else if(json.account===false){
                 Toast.warning("账号不存在");
                 // 清空无效的登录信息
                 localStorage.removeItem("loginData");
@@ -103,6 +122,7 @@ function createSubmitButton(){
             }else{
                 Toast.success("登录成功");
                 // 保存登录信息
+                data.token=json.token;
                 localStorage.setItem("loginData",JSON.stringify(data));
             }
         });
