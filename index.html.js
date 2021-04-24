@@ -8,7 +8,7 @@ document.title="登录"; // 网页的标题
 function createAccountInpput(){
     let input=document.createElement("input");
     input.type="text";
-    input.placehold="账号";
+    input.placeholder="账号";
     input.name="account";
     return input;
 }
@@ -16,7 +16,7 @@ function createAccountInpput(){
 function createPasswordInput(){
     let input=document.createElement("input");
     input.type="password";
-    input.placehold="密码";
+    input.placeholder="密码";
     input.name="password";
     return input;
 }
