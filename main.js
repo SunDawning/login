@@ -6,6 +6,7 @@ import{decodeRequestBody}from"./decodeRequestBody.js"; // https://gitee.com/sund
 import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 import{ACCOUNTS}from"./ACCOUNTS.js";
 import{requestFile}from"./requestFile.js";
+import "./sha1.js"; // https://github.com/emn178/js-sha1
 /**
  * 在浏览器里使用程序
  */
@@ -48,10 +49,12 @@ for await (let request of server){
                     let lowerCaseAccount=account.toLowerCase();
                     consoleLog("lowerCaseAccount",lowerCaseAccount)
                     let user=ACCOUNTS[lowerCaseAccount];
-                    consoleLog("user",user);
                     if(user){
+                        consoleLog("用户存在");
                         body.account=true;
-                        if(user["password"]===requestBody["password"]){
+                        let validPassword=sha1(user["password"]+requestBody["random"]);
+                        if(validPassword===requestBody["password"]){
+                            consoleLog("密码正确");
                             body.password=true;
                         }
                     }
