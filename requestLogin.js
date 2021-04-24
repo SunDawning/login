@@ -7,19 +7,16 @@ let TOKENS={}; // 存储所有有时效的登录权限
  * 请求＂/login＂页面，验证登录信息。
  */
 export async function requestLogin(request){
-    let body;
-    let headers;
     let requestBody=await decodeRequestBody(request.body);
-    consoleLog("登录",requestBody);
+    consoleLog("接收到请求登录的信息",requestBody);
     requestBody=JSON.parse(requestBody);
     consoleLog("JSON parse",requestBody);
-    body={
+    let body={
         account:false,
         password:false,
     };
-    // 检测到有效的token
+    // 验证token登录
     let token=requestBody["token"];
-    consoleLog("token",token);
     if(token){
         if(TOKENS[token]){
             // 确认token有效
@@ -31,6 +28,8 @@ export async function requestLogin(request){
             body.token=false;
         }
     }else{
+        // 验证账号密码登录
+        consoleLog("token不存在，验证账号密码登录。");
         let account=requestBody["account"];
         consoleLog("account",account);
         if(account){
