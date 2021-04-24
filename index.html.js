@@ -30,14 +30,14 @@ function createSubmitButton(){
             account:collection["account"].value,
             password:collection["password"].value,
         }
-        consoleLog("点击了登录按钮",data);
+        consoleLog("点击了登录按钮");
+        consoleLog("发送登录信息",data);
         postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){
-            consoleLog("Response",json);
+            consoleLog("返回验证信息",json);
             if(json.account===false){
                 toast("账号不存在");
-            }
-            if(json.password===false){
-                toast("密码不存在");
+            }else if(json.password===false){
+                toast("密码不正确");
             }
         });
     }
