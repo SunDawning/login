@@ -36,8 +36,8 @@ for await (let request of server){
         request.respond({body:body,headers:headers});
     }else{
         switch(request.url){
-            case "/check":
-                consoleLog("验证是否是有效用户");
+            case "/login":
+                consoleLog("登录");
                 request.respond({status:200});
                 break;
             default:
