@@ -35,6 +35,13 @@ for await (let request of server){
         headers=new Headers();
         headers.set("content-type","application/javascript; charset=utf-8");
         request.respond({body:body,headers:headers});
+    }else if(request.url.endsWith(".css")){
+        let file=`.${request.url}`;
+        body=new TextDecoder("utf-8").decode(Deno.readFileSync(file));
+        consoleLog("解析完数据",file);
+        headers=new Headers();
+        headers.set("content-type","text/css; charset=utf-8");
+        request.respond({body:body,headers:headers});        
     }else{
         switch(request.url){
             case "/login":
