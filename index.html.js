@@ -109,10 +109,20 @@ padding: 8px;
 `
     form.appendChild(createAccountInpput());
     form.appendChild(createPasswordInput());
-    form.appendChild(createSubmitButton());
+    let submit=createSubmitButton();
+    form.appendChild(submit);
+    // javascript - Detect the Enter key in a text input field - Stack Overflow: https://stackoverflow.com/questions/7060750/detect-the-enter-key-in-a-text-input-field
+    Object.values(form.getElementsByTagName("input")).forEach(function(input){
+        input.addEventListener("keyup",function(event){
+            if(event.key==="Enter"||event.keyCode===13){
+                submit.click();
+            }
+        });
+    });
     return form;
 }
 document.body.style.cssText=`
 background: #ecefff;
 `;
 document.body.appendChild(createForm());
+
