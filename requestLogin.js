@@ -4,9 +4,15 @@ import{encrypt}from"./encrypt.js";
 import{ACCOUNTS}from"./ACCOUNTS.js";
 let TOKENS={}; // 存储所有有时效的登录权限
 /**
- * 请求＂/login＂页面，验证登录信息。
+ * POST请求＂/login＂页面，验证登录信息。
  */
 export async function requestLogin(request){
+    // 只允许POST请求访问
+    // error: Uncaught (in promise) SyntaxError: Unexpected end of JSON input
+    if(!(request.method==="POST")){
+        request.respond({status:404});
+        return;
+    }
     let requestBody=await decodeRequestBody(request.body);
     consoleLog("接收到请求登录的信息",requestBody);
     requestBody=JSON.parse(requestBody);
