@@ -5,5 +5,4 @@ function onClick(event){
     consoleLog("点击了登录按钮");
 }
 button.addEventListener("click",onClick);
-
 document.body.appendChild(button);
