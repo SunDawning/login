@@ -8,6 +8,7 @@ export function inForbiddenFiles(file){
         "decodeRequestBody.js",
         "inForbiddenfiles.js",
         "main.js",
+        "readme.js",
         "requestFile.js",
         "requestIndex.js",
         "requestLogin.js",
