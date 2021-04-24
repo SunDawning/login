@@ -2,7 +2,7 @@ import{option1}from"./html.js";
 option1();
 import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 import{toast}from"./Toast.js";
-import "./sha1.js"; // https://github.com/emn178/js-sha1
+import{encrypt}from"./encrypt.js";
 document.title="登录"; // 网页的标题
 // 创建账号输入框
 function createAccountInpput(){
@@ -32,7 +32,7 @@ function createSubmitButton(){
             password:collection["password"].value,
             random:new Date().getTime(),
         }
-        data.password=sha1(data.password+data.random);
+        data.password=encrypt(data.password+data.random);
         consoleLog("点击了登录按钮");
         consoleLog("发送登录信息",data);
         postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){

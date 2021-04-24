@@ -6,7 +6,7 @@ import{decodeRequestBody}from"./decodeRequestBody.js"; // https://gitee.com/sund
 import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 import{ACCOUNTS}from"./ACCOUNTS.js";
 import{requestFile}from"./requestFile.js";
-import "./sha1.js"; // https://github.com/emn178/js-sha1
+import{encrypt}from"./encrypt.js";
 /**
  * 在浏览器里使用程序
  */
@@ -52,7 +52,7 @@ for await (let request of server){
                     if(user){
                         consoleLog("用户存在");
                         body.account=true;
-                        let validPassword=sha1(user["password"]+requestBody["random"]);
+                        let validPassword=encrypt(user["password"]+requestBody["random"]);
                         if(validPassword===requestBody["password"]){
                             consoleLog("密码正确");
                             body.password=true;
