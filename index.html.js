@@ -10,6 +10,7 @@ function createAccountInpput(){
     input.type="text";
     input.placeholder="账号";
     input.name="account";
+    input.spellcheck=false;
     input.style.cssText=`
     margin:8px;
     font-size: 14px;
