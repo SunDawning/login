@@ -10,6 +10,16 @@ function createAccountInpput(){
     input.type="text";
     input.placeholder="账号";
     input.name="account";
+    input.style.cssText=`
+    margin:8px;
+    font-size: 14px;
+    background: rgba(39, 39, 41, 0.04);
+    border-radius: 8px;
+    padding-left: 12px;
+    width: 304px;
+    border: 1px solid transparent;
+    height: 46px;
+`;
     return input;
 }
 // 创建密码输入框
@@ -18,6 +28,16 @@ function createPasswordInput(){
     input.type="password";
     input.placeholder="密码";
     input.name="password";
+    input.style.cssText=`
+    margin:8px;
+    font-size: 14px;
+    background: rgba(39, 39, 41, 0.04);
+    border-radius: 8px;
+    padding-left: 12px;
+    width: 304px;
+    border: 1px solid transparent;
+    height: 46px;
+`;
     return input;
 }
 // 创建提交按钮
@@ -25,6 +45,23 @@ import{postObjectInJSON}from"./sendObjectInJSON.js"; // https://gitee.com/sundaw
 function createSubmitButton(){
     let button=document.createElement("button");
     button.innerText="登录";
+    button.style.cssText=`
+    width: 304px;
+    font-size: 16px;
+    color: #fff;
+    border-width: 0;
+    box-shadow: none;
+    background: none;
+    outline: none;
+    height: 48px;
+    background-image: linear-gradient(
+129.12deg
+, #446dff 0%, rgba(99, 125, 255, 0.75) 100%);
+    border-radius: 10px;
+    backdrop-filter: blur(24px);
+    margin:8px;
+    cursor:pointer;
+`;
     function onClick(event){
         let collection=button.parentElement.getElementsByTagName("input");
         let inputAccount=collection["account"].value;
@@ -63,9 +100,19 @@ function createSubmitButton(){
 // 一并创建表单
 function createForm(){
     let form=document.createElement("div");
+    form.style.cssText=`
+margin: 0 auto;
+width: 100%;
+max-width: 320px;
+text-align: center;
+padding: 8px;
+`
     form.appendChild(createAccountInpput());
     form.appendChild(createPasswordInput());
     form.appendChild(createSubmitButton());
     return form;
 }
+document.body.style.cssText=`
+background: #ecefff;
+`;
 document.body.appendChild(createForm());
