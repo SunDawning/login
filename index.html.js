@@ -64,34 +64,46 @@ function createSubmitButton(){
     cursor:pointer;
 `;
     function onClick(event){
-        let collection=button.parentElement.getElementsByTagName("input");
-        let inputAccount=collection["account"].value;
-        if(inputAccount===""){
-            Toast.warning("没有输入账号");
-            return;
+        // 查询登录信息
+        let data=localStorage.getItem("loginData");
+        if(data===null){
+            let collection=button.parentElement.getElementsByTagName("input");
+            let inputAccount=collection["account"].value;
+            if(inputAccount===""){
+                Toast.warning("没有输入账号");
+                return;
+            }
+            let inputPassword=collection["password"].value;
+            if(inputPassword===""){
+                Toast.warning("没有输入密码");
+                return;
+            }
+            // 准备好将要用来登录的信息：账号、加密的密码
+            data={
+                account:inputAccount,
+                password:inputPassword,
+                random:new Date().getTime(),
+            }
+            data.password=encrypt(data.password+data.random);
+        }else{
+            data=JSON.parse(data);
         }
-        let inputPassword=collection["password"].value;
-        if(inputPassword===""){
-            Toast.warning("没有输入密码");
-            return;
-        }
-        // 准备好将要用来登录的信息：账号、加密的密码
-        let data={
-            account:inputAccount,
-            password:inputPassword,
-            random:new Date().getTime(),
-        }
-        data.password=encrypt(data.password+data.random);
         consoleLog("点击了登录按钮");
         consoleLog("发送登录信息",data);
         postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){
             consoleLog("返回验证信息",json);
             if(json.account===false){
                 Toast.warning("账号不存在");
+                // 清空无效的登录信息
+                localStorage.removeItem("loginData");
             }else if(json.password===false){
                 Toast.warning("密码不正确");
+                // 清空无效的登录信息
+                localStorage.removeItem("loginData");
             }else{
                 Toast.success("登录成功");
+                // 保存登录信息
+                localStorage.setItem("loginData",JSON.stringify(data));
             }
         });
     }
@@ -120,10 +132,14 @@ padding: 8px;
             }
         });
     });
+    // 自动登录
+    let data=localStorage.getItem("loginData");
+    if(!(data===null)){
+        submit.click();
+    }
     return form;
 }
 document.body.style.cssText=`
 background: #ecefff;
 `;
 document.body.appendChild(createForm());
-
