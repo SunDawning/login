@@ -10,6 +10,7 @@ export function onClick(event){
     let data=localStorage.getItem("loginData");
     // 使用账号密码登录
     if(data===null){
+        let button=event.currentTarget;
         let collection=button.parentElement.getElementsByTagName("input");
         let inputAccount=collection["account"].value;
         if(inputAccount===""){
