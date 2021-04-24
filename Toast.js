@@ -19,7 +19,14 @@ function success(message){
         position:"center",
     });
 }
+function info(message){
+    iziToast.info({
+        message:message,
+        position:"center",
+    });
+}
 export{
+    info,
     warning,
     success,
 };
