@@ -9,15 +9,18 @@ import{requestIndex}from"./requestIndex.js";
 export function router(request){
     consoleLog("访问",request.url);
     // 访问.js文件时：/gui.html.js => ./gui.html.js
-    if(/(\.js|\.css)$/.test(request.url)){
+    if(/(\.js|\.css|\.html)$/.test(request.url)){
         requestFile(request);
     }else{
         switch(request.url){
             case "/login":
                 requestLogin(request);
                 break;
-            default:
+            case "/":
                 requestIndex(request);
+                break;
+            default:
+                request.respond({status:404});
         }
     }
 }
