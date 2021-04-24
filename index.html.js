@@ -1,7 +1,7 @@
 import{option1}from"./html.js";
 option1();
 import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
-import{toast}from"./Toast.js";
+import * as Toast from"./Toast.js";
 import{encrypt}from"./encrypt.js";
 document.title="登录"; // 网页的标题
 // 创建账号输入框
@@ -38,9 +38,11 @@ function createSubmitButton(){
         postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){
             consoleLog("返回验证信息",json);
             if(json.account===false){
-                toast("账号不存在");
+                Toast.warning("账号不存在");
             }else if(json.password===false){
-                toast("密码不正确");
+                Toast.warning("密码不正确");
+            }else{
+                Toast.success("登录成功");
             }
         });
     }

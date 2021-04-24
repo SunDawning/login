@@ -7,13 +7,19 @@ function addiziToastCSS(){
     return css;
 }
 addiziToastCSS();
-/**
- * 弹出消息气泡
- */
-function toast(message){
-    iziToast.show({
+function warning(message){
+    iziToast.warning({
+        message: message,
+        position: 'center',
+    });
+}
+function success(message){
+    iziToast.success({
         message:message,
         position:"center",
     });
 }
-export{toast};
+export{
+    warning,
+    success,
+};
