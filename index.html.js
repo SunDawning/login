@@ -27,9 +27,20 @@ function createSubmitButton(){
     button.innerText="登录";
     function onClick(event){
         let collection=button.parentElement.getElementsByTagName("input");
+        let inputAccount=collection["account"].value;
+        if(inputAccount===""){
+            Toast.warning("没有输入账号");
+            return;
+        }
+        let inputPassword=collection["password"].value;
+        if(inputPassword===""){
+            Toast.warning("没有输入密码");
+            return;
+        }
+        // 准备好将要用来登录的信息：账号、加密的密码
         let data={
-            account:collection["account"].value,
-            password:collection["password"].value,
+            account:inputAccount,
+            password:inputPassword,
             random:new Date().getTime(),
         }
         data.password=encrypt(data.password+data.random);
