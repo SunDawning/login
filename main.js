@@ -5,6 +5,7 @@ import{serve}from"https://deno.land/std/http/server.ts";
 import{decodeRequestBody}from"./decodeRequestBody.js"; // https://gitee.com/sundawning/git-diff-7z/raw/c1370a7ed52662736dabfe779a34488fd7fe32cf/decodeRequestBody.js
 import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 import{ACCOUNTS}from"./ACCOUNTS.js";
+import{requestFile}from"./requestFile.js";
 /**
  * 在浏览器里使用程序
  */
@@ -28,20 +29,8 @@ for await (let request of server){
     let headers;
     consoleLog("访问",request.url);
     // 访问.js文件时：/gui.html.js => ./gui.html.js
-    if(request.url.endsWith(".js")){
-        let file=`.${request.url}`;
-        body=new TextDecoder("utf-8").decode(Deno.readFileSync(file));
-        consoleLog("解析完数据",file);
-        headers=new Headers();
-        headers.set("content-type","application/javascript; charset=utf-8");
-        request.respond({body:body,headers:headers});
-    }else if(request.url.endsWith(".css")){
-        let file=`.${request.url}`;
-        body=new TextDecoder("utf-8").decode(Deno.readFileSync(file));
-        consoleLog("解析完数据",file);
-        headers=new Headers();
-        headers.set("content-type","text/css; charset=utf-8");
-        request.respond({body:body,headers:headers});        
+    if(/(\.js|\.css)$/.test(request.url)){
+        requestFile(request);
     }else{
         switch(request.url){
             case "/login":
@@ -72,7 +61,7 @@ for await (let request of server){
                 consoleLog(body);
                 break;
             default:
-                body=new TextDecoder("utf-8").decode(Deno.readFileSync("index.html"));
+                body=new TextDecoder("utf-8").decode(Deno.readFileSync("./index.html"));
                 request.respond({body});
         }
     }
