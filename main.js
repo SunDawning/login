@@ -2,8 +2,8 @@
  * 登录界面
  */
 import{serve}from"https://deno.land/std/http/server.ts";
-import{decodeRequestBody}from"https://gitee.com/sundawning/git-diff-7z/raw/c1370a7ed52662736dabfe779a34488fd7fe32cf/decodeRequestBody.js";
-import{consoleLog}from"./consoleLog.js";
+import{decodeRequestBody}from"./decodeRequestBody.js"; // https://gitee.com/sundawning/git-diff-7z/raw/c1370a7ed52662736dabfe779a34488fd7fe32cf/decodeRequestBody.js
+import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 /**
  * 在浏览器里使用程序
  */
@@ -37,7 +37,7 @@ for await (let request of server){
     }else{
         switch(request.url){
             case "/login":
-                consoleLog("登录");
+                consoleLog("登录",await decodeRequestBody(request.body));
                 request.respond({status:200});
                 break;
             default:

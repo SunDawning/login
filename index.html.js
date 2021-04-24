@@ -1,6 +1,6 @@
 import{option1}from"./html.js";
 option1();
-import{consoleLog}from"./consoleLog.js";
+import{consoleLog}from"./consoleLog.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/1d10a561a22b57e7385f4c240bb88b6c3d3043f6/consoleLog.js
 document.title="登录"; // 网页的标题
 // 创建账号输入框
 function createAccountInpput(){
@@ -19,18 +19,18 @@ function createPasswordInput(){
     return input;
 }
 // 创建提交按钮
+import{postObjectInJSON}from"./sendObjectInJSON.js"; // https://gitee.com/sundawning/deno-oak-rest-users/raw/master/sendObjectInJSON.js
 function createSubmitButton(){
     let button=document.createElement("button");
     button.innerText="登录";
     function onClick(event){
         let collection=button.parentElement.getElementsByTagName("input");
-        let account=collection["account"].value;
-        let password=collection["password"].value;
         let data={
-            account:account,
-            password:password,
+            account:collection["account"].value,
+            password:collection["password"].value,
         }
         consoleLog("点击了登录按钮",data);
+        postObjectInJSON("/login",data);
     }
     button.addEventListener("click",onClick);
     return button;
