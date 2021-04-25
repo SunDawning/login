@@ -3,8 +3,7 @@ import{consoleLog}from"./consoleLog.js";
 /**
  * 验证token是否是TOKENS里有效的，并在body里保存验证结果。
  */
-export function checkToken(requestBody,body){
-    let token=requestBody["token"];
+export function checkToken(token,body){
     if(token){
         if(TOKENS[token]){
             // 确认token有效

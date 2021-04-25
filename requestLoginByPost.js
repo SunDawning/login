@@ -14,9 +14,10 @@ export async function requestLoginByPost(request){
         isValidAccount:false,
         isValidPassword:false,
     }; // 存储验证的结果
-    if(requestBody["token"]){
+    let tokenInRequest=requestBody["token"];
+    if(tokenInRequest){
         consoleLog("请求的信息里包含了token，验证token登录");
-        checkToken(requestBody,body);
+        checkToken(tokenInRequest,body);
     }else{
         consoleLog("验证账号密码登录");
         checkAccountPassword(requestBody,body);
