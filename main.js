@@ -3,7 +3,8 @@
  * 在浏览器里使用程序
  */
 let hostname="0.0.0.0";
-let port=1547;
+import{PORT}from"./PORT.js";
+let port=PORT;
 import{serve}from"https://deno.land/std@0.95.0/http/server.ts";
 let server=serve({
     hostname:hostname,

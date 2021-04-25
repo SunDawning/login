@@ -35,6 +35,7 @@ export async function requestCheckRouter(host){
     await window.fetch(getURL(`/isValidToken?token=${validToken}`));
     consoleLog("测试结果",body);
 }
+import{PORT}from"./PORT.js";
 if(import.meta.main){
-    requestCheckRouter("localhost:1547");
+    requestCheckRouter(`localhost:${PORT}`);
 }
