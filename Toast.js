@@ -7,26 +7,21 @@ function addiziToastCSS(){
     return css;
 }
 addiziToastCSS();
-function warning(message){
+export function warning(message){
     iziToast.warning({
         message: message,
         position: 'center',
     });
 }
-function success(message){
+export function success(message){
     iziToast.success({
         message:message,
         position:"center",
     });
 }
-function info(message){
+export function info(message){
     iziToast.info({
         message:message,
         position:"center",
     });
 }
-export{
-    info,
-    warning,
-    success,
-};

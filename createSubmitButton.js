@@ -3,6 +3,7 @@ import{onClick}from"./onClick.js";
 export function createSubmitButton(){
     let button=document.createElement("button");
     button.innerText="登录";
+    button.addEventListener("click",onClick);
     button.style.cssText=`
     width: 304px;
     font-size: 16px;
@@ -12,14 +13,11 @@ export function createSubmitButton(){
     background: none;
     outline: none;
     height: 48px;
-    background-image: linear-gradient(
-129.12deg
-, #446dff 0%, rgba(99, 125, 255, 0.75) 100%);
+    background-image: linear-gradient(129.12deg, #446dff 0%, rgba(99, 125, 255, 0.75) 100%);
     border-radius: 10px;
     backdrop-filter: blur(24px);
     margin:8px;
     cursor:pointer;
 `;
-    button.addEventListener("click",onClick);
     return button;
 }

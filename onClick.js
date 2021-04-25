@@ -6,10 +6,8 @@ import{postObjectInJSON}from"./sendObjectInJSON.js"; // https://gitee.com/sundaw
  * 点击按钮后的登录事件
  */
 export function onClick(event){
-    // 查询登录信息
-    let data=localStorage.getItem("loginData");
-    // 使用账号密码登录
-    if(data===null){
+    let data=localStorage.getItem("loginData"); // 查询登录信息
+    if(data===null){ // 使用账号密码登录
         let button=event.currentTarget;
         let collection=button.parentElement.getElementsByTagName("input");
         let inputAccount=collection["account"].value;
@@ -22,16 +20,14 @@ export function onClick(event){
             Toast.warning("没有输入密码");
             return;
         }
-        // 准备好将要用来登录的信息：账号、加密的密码
         data={
             account:inputAccount,
             password:inputPassword,
             random:new Date().getTime(),
-        }
+        } // 准备好将要用来登录的信息：账号、加密的密码
         data.password=encrypt(data.password+data.random);
-    }else{
+    }else{ // 使用token登录
         data=JSON.parse(data);
-        // 使用token登录
         if(data.token){
             data={
                 token:data.token,
