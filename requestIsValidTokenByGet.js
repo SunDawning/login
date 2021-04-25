@@ -3,7 +3,7 @@ import{checkToken}from"./checkToken.js";
 /**
  * GET请求验证是否是有效的token
  */
-export async function requestIsValidTokenByGet(request){
+export function requestIsValidTokenByGet(request){
     let url=new URL(request.url,"http://token.com");
     let tokenInRequest=url.searchParams.get("token");
     "http://localhost:1547/isValidToken?token=16466a81b3f71376434be36ecd66a59b910c81b7";

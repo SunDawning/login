@@ -10,12 +10,12 @@ import{requestIsValidToken}from"./requestIsValidToken.js";
  */
 export function router(request){
     consoleLog("访问",request.url);
-    // 访问本地文件
-    if(/(\.js|\.css|\.html)$/.test(request.url)){
+    let url=new URL(request.url,"http://request.com");
+    let pathname=url.pathname;
+    consoleLog("pathname",pathname);
+    if(/(\.js|\.css|\.html)$/.test(pathname)){ // 访问本地文件
         requestFile(request);
     }else{
-        let url=new URL(request.url,"http://request.com");
-        let pathname=url.pathname;
         switch(pathname){
             case "/login":
                 requestLogin(request);
