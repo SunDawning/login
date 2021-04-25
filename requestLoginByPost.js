@@ -7,11 +7,14 @@ import{checkAccountPassword}from"./checkAccountPassword.js";
  */
 export async function requestLoginByPost(request){
     let requestBody=await decodeRequestBodyInJSON(request.body);
+    let tokenInRequest;
+    if(requestBody){
+        tokenInRequest=requestBody["token"];
+    }
     let body={
         isValidAccount:false,
         isValidPassword:false,
     }; // 存储验证的结果
-    let tokenInRequest=requestBody["token"];
     if(tokenInRequest){
         consoleLog("请求的信息里包含了token，验证token登录。");
         checkToken(tokenInRequest,body);
