@@ -5,9 +5,9 @@ import{encrypt}from"./encrypt.js";
 /**
  * 批量测试程序的功能
  */
-export async function testRouter(port){
+export async function testRouter(host){
     function getURL(path){
-        return `http://localhost:${port}${path}`; // 网址的前缀
+        return `http://${host}${path}`; // 网址的前缀
     }
     let database=[];
     let validAccount=Object.keys(ACCOUNTS)[0];
@@ -101,5 +101,6 @@ export async function testRouter(port){
 }
 import{PORT}from"./PORT.js";
 if(import.meta.main){
-    testRouter(PORT);
+    let port=PORT;
+    testRouter(`localhost:${port}`);
 }
