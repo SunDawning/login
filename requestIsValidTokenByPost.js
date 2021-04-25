@@ -3,9 +3,14 @@ import{checkTokenInRequest}from"./checkTokenInRequest.js";
 /**
  * POST请求验证是否是有效的token
  */
-export function requestIsValidTokenByPost(request){
+export async function requestIsValidTokenByPost(request){
+    let requestBody=await decodeRequestBodyInJSON(request.body);
+    let tokenInRequest;
+    if(requestBody){
+        tokenInRequest=requestBody["token"]
+    }
     function onBody(body){
         request.respond({body:JSON.stringify(body)});
     }
-    checkTokenInRequest(decodeRequestBodyInJSON(request.body)["token"],onBody);
+    checkTokenInRequest(tokenInRequest,onBody);
 }

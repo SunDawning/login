@@ -1,4 +1,3 @@
-import{consoleLog}from"./consoleLog.js";
 import{request404}from"./request404.js";
 import{requestIsValidTokenByPost}from"./requestIsValidTokenByPost.js";
 import{requestIsValidTokenByGet}from"./requestIsValidTokenByGet.js";

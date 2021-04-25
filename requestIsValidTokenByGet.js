@@ -1,4 +1,3 @@
-import{consoleLog}from"./consoleLog.js";
 import{checkTokenInRequest}from"./checkTokenInRequest.js";
 /**
  * GET请求验证是否是有效的token  //

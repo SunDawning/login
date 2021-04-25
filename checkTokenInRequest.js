@@ -9,7 +9,7 @@ export function checkTokenInRequest(tokenInRequest,onBody){
         isValidToken:false,
     }; // 存储验证的结果
     if(tokenInRequest){
-        consoleLog("请求的信息里包含了token，验证token");
+        consoleLog("请求的信息里包含了token，验证token。");
         checkToken(tokenInRequest,body);
     }
     consoleLog("验证的结果",body);
