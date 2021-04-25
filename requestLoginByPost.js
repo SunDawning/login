@@ -16,7 +16,7 @@ export async function requestLoginByPost(request){
     }; // 存储验证的结果
     let tokenInRequest=requestBody["token"];
     if(tokenInRequest){
-        consoleLog("请求的信息里包含了token，验证token登录");
+        consoleLog("请求的信息里包含了token，验证token登录。");
         checkToken(tokenInRequest,body);
     }else{
         consoleLog("验证账号密码登录");

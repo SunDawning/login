@@ -6,7 +6,6 @@ import{requestIsValidTokenByGet}from"./requestIsValidTokenByGet.js";
  * 请求验证是否是有效的token
  */
 export function requestIsValidToken(request){
-    consoleLog(request.method);
     if(request.method==="POST"){
         requestIsValidTokenByPost(request);
     }else if(request.method==="GET"){
