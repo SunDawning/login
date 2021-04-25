@@ -81,6 +81,8 @@ export async function testRouter(port){
     });
     let report={
         total:database.length,
+        passedTotal:0,
+        failedTotal:0,
         failed:[],
         passed:[],
     }; // 测试报告
