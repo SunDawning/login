@@ -5,7 +5,7 @@ import{checkAccountPassword}from"./checkAccountPassword.js";
 /**
  * POST请求＂/login＂页面，验证登录信息。
  */
-export async function requestPostLogin(request){
+export async function requestLoginByPost(request){
     let requestBody=await decodeRequestBody(request.body);
     consoleLog("接收到请求登录的信息",requestBody);
     requestBody=JSON.parse(requestBody);
