@@ -10,11 +10,10 @@ export async function requestLoginByPost(request){
     consoleLog("接收到请求登录的信息",requestBody);
     requestBody=JSON.parse(requestBody);
     consoleLog("JSON parse",requestBody);
-    // 存储验证的结果
     let body={
         isValidAccount:false,
         isValidPassword:false,
-    };
+    }; // 存储验证的结果
     if(requestBody["token"]){
         consoleLog("请求的信息里包含了token，验证token登录");
         checkToken(requestBody,body);
@@ -22,10 +21,6 @@ export async function requestLoginByPost(request){
         consoleLog("验证账号密码登录");
         checkAccountPassword(requestBody,body);
     }
-    request.respond({
-        status:200,
-        // error: Uncaught (in promise) TypeError: r.read is not a function
-        body:JSON.stringify(body),
-    });
-    consoleLog(body);
+    request.respond({body:JSON.stringify(body)});
+    consoleLog("验证的结果",body);
 }
