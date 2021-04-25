@@ -58,12 +58,18 @@ export async function testRouter(host){
             shouldbe:'{"isValidToken":false}',
         form:`sendObjectInJSON("${url}","POST",{token:"${inValidToken}"})`,
     });
-    url=getURL("/isValidToken");
     database.push({
         document:`POST /isValidToken 使用有效的token`,
-            is:await (await sendObjectInJSON(url,"POST",{token:validToken})).text(),
-            shouldbe:'{"isValidToken":true}',
+        is:await (await sendObjectInJSON(url,"POST",{token:validToken})).text(),
+        shouldbe:'{"isValidToken":true}',
         form:`sendObjectInJSON("${url}","POST",{token:"${validToken}"})`,
+    });
+    let defaultHeaders={"content-type":"application/x-www-form-urlencoded"};
+    database.push({
+        document:`POST /isValidToken 不以JSON格式发送数据`,
+        is:await (await window.fetch(url,{method:"POST",headers:defaultHeaders,body:inValidToken})).text(),
+        shouldbe:'{"isValidToken":false}',
+        form:`window.fetch(${url},{method:"POST",headers:${JSON.stringify(defaultHeaders)},body:"${inValidToken}"})`,
     });
     url=getURL(`/isValidToken?token=${inValidToken}`);
     database.push({
