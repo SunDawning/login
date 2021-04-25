@@ -9,25 +9,17 @@ import{requestIsValidToken}from"./requestIsValidToken.js";
  * 路由表
  */
 export function router(request){
-    consoleLog("访问",request.url);
-    let url=new URL(request.url,"http://request.com");
-    let pathname=url.pathname;
-    consoleLog("pathname",pathname);
+    let pathname=new URL(request.url,"http://request.com").pathname;
+    consoleLog("访问",request.url,"=>",pathname);
     if(/(\.js|\.css|\.html)$/.test(pathname)){ // 访问本地文件
         requestFile(request);
-    }else{
-        switch(pathname){
-            case "/login":
-                requestLogin(request);
-                break;
-            case "/isValidToken":
-                requestIsValidToken(request);
-                break;
-            case "/":
-                requestIndex(request);
-                break;
-            default:
-                request404(request);
-        }
+    }else if(pathname==="/login"){ // 请求登录
+        requestLogin(request);
+    }else if(pathname==="/isValidToken"){ // 验证是否是有效的token
+        requestIsValidToken(request);
+    }else if(pathname==="/"){ // 请求根目录
+        requestIndex(request);
+    }else{ // 不符合上述要求，返回404。
+        request404(request);
     }
 }
