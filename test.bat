@@ -1,1 +1,1 @@
-deno run --allow-net requestCheckRouter.js
+deno run --allow-net testRouter.js

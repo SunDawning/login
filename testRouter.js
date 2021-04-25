@@ -6,7 +6,7 @@ import{encrypt}from"./encrypt.js";
 /**
  * 批量测试程序的功能
  */
-export async function requestCheckRouter(host){
+export async function testRouter(host){
     function getURL(path){
         return `http://${host}${path}`; // 网址的前缀
     }
@@ -37,5 +37,5 @@ export async function requestCheckRouter(host){
 }
 import{PORT}from"./PORT.js";
 if(import.meta.main){
-    requestCheckRouter(`localhost:${PORT}`);
+    testRouter(`localhost:${PORT}`);
 }
