@@ -42,7 +42,7 @@ export function onClick(event){
     consoleLog("发送登录信息",data);
     postObjectInJSON("/login",data).then(function(response){return response.json();}).then(function(json){
         consoleLog("返回验证信息",json);
-        if(json.token===false){
+        if(json.isValidToken===false){
             Toast.warning("登录已过期");
             // 删除保存的无效token
             if(localStorage.getItem("loginData")){
@@ -53,13 +53,13 @@ export function onClick(event){
             // 重新登录
             Toast.info("正在重新登录");
             onClick(event);
-        }else if(json.token===true){
+        }else if(json.isValidToken===true){
             Toast.success("登录成功");
-        }else if(json.account===false){
+        }else if(json.isValidAccount===false){
             Toast.warning("账号不存在");
             // 清空无效的登录信息
             localStorage.removeItem("loginData");
-        }else if(json.password===false){
+        }else if(json.isValidPassword===false){
             Toast.warning("密码不正确");
             // 清空无效的登录信息
             localStorage.removeItem("loginData");

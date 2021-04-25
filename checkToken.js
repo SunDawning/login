@@ -9,11 +9,11 @@ export function checkToken(requestBody,body){
         if(TOKENS[token]){
             // 确认token有效
             consoleLog("有效token");
-            body.token=true;
+            body.isValidToken=true;
         }else{
             // 让token失效
             consoleLog("无效token")
-            body.token=false;
+            body.isValidToken=false;
         }
     }
 }

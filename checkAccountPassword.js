@@ -14,11 +14,11 @@ export function checkAccountPassword(requestBody,body){
         let user=ACCOUNTS[lowerCaseAccount];
         if(user){
             consoleLog("用户存在");
-            body.account=true;
+            body.isValidAccount=true;
             let validPassword=encrypt(user["password"]+requestBody["random"]);
             if(validPassword===requestBody["password"]){
                 consoleLog("密码正确");
-                body.password=true;
+                body.isValidPassword=true;
                 let timestamp=new Date().getTime();
                 let token=encrypt(account+user["password"]+timestamp);
                 // 在内存里保存token

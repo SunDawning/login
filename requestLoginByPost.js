@@ -12,8 +12,8 @@ export async function requestLoginByPost(request){
     consoleLog("JSON parse",requestBody);
     // 存储验证的结果
     let body={
-        account:false,
-        password:false,
+        isValidAccount:false,
+        isValidPassword:false,
     };
     if(requestBody["token"]){
         consoleLog("请求的信息里包含了token，验证token登录");
