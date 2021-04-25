@@ -80,8 +80,9 @@ export async function testRouter(port){
         form:`window.fetch("${url}")`,
     });
     let report={
-        passed:[],
+        total:database.length,
         failed:[],
+        passed:[],
     }; // 测试报告
     database.forEach(function(data){
         let is=data.is;
@@ -92,11 +93,9 @@ export async function testRouter(port){
             report.failed.push(data);
         }
     });
-    consoleLog("测试结果",Object.assign({
-        total:database.length,
-        passedTotal:report.passed.length,
-        failedTotal:report.failed.length,
-    },report));
+    report.passedTotal=report.passed.length;
+    report.failedTotal=report.failed.length;
+    consoleLog("测试结果",report);
 }
 import{PORT}from"./PORT.js";
 if(import.meta.main){
