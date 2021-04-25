@@ -15,11 +15,11 @@ export async function requestPostLogin(request){
         account:false,
         password:false,
     };
-    if(requestBody["token"]){ // 请求的信息里包含了token数据，验证token登录
-        consoleLog("token存在，验证token登录。");
+    if(requestBody["token"]){
+        consoleLog("请求的信息里包含了token，验证token登录");
         checkToken(requestBody,body);
-    }else{ // 验证账号密码登录
-        consoleLog("token不存在，验证账号密码登录。");
+    }else{
+        consoleLog("验证账号密码登录");
         checkAccountPassword(requestBody,body);
     }
     request.respond({
