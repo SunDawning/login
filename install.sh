@@ -1,1 +1,1 @@
-deno install --allow-net --allow-read --unstable --name DenoLoginServerLinux main.js
+deno install --allow-net --allow-read --unstable --name DenoLoginServerLinux -f main.js
